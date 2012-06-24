@@ -1,16 +1,15 @@
-<!-- LEFT COLUMN --> <!-- Navigation -->
-<div id="left-column">
-    [:if isset($MODEL.categoryTree):]
-        <ul>
-            <li class="left-navheader-first">[:$MODEL.language->getMessage('msg.categories'):]</li>
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header"><a href="[:$MODEL.urlHome:]">[:$LANGUAGE->getMessage('msg.home'):]</a></li>
+        [:if isset($MODEL.categoryTree):]
             [:foreach $MODEL.categoryTree as $cat:]
-                <li><a title="[:$cat->getTitle()|escape:'html':]" class="left-navheader" href="[:$cat->getUrlView():]">[:$cat->getTitleForDisplay(20)|escape:'html':]</a></li>
+                <li class="nav-header"><a title="[:$cat->getTitle()|escape:'html':]" href="[:$cat->getUrlView():]">[:$cat->getTitleForDisplay(25)|escape:'html':]</a></li>
                 [:foreach $cat->getChildren() as $child:]
-                    <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">[:$child->getTitleForDisplay(20)|escape:'html':]</a></li>
+                    <li><a title="[:$child->getTitle()|escape:'html':]" href="[:$child->getUrlView():]">[:$child->getTitleForDisplay(30)|escape:'html':]</a></li>
                 [:foreachelse:]
                     <li>[:$MODEL.language->getMessage('msg.nodata'):]</li>
                 [:/foreach:]
             [:/foreach:]
-        </ul>
-    [:/if:]
-</div>
+        [:/if:]
+    </ul>
+</div><!--/.well -->
