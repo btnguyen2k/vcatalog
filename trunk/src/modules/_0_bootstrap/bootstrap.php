@@ -2,15 +2,15 @@
 /* vCatalog's global boostrap file */
 
 // disable cache
-#global $DPHP_CACHE_CONFIG;
-#global $DPHP_CACHE_CONFIG_MEMORY;
-#$DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
+// lobal $DPHP_CACHE_CONFIG;
+// lobal $DPHP_CACHE_CONFIG_MEMORY;
+// DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
 
 // temporarily switch to simple log
 global $DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
 global $DPHP_COMMONS_LOGGING_CONFIG_MYSQL;
 global $DPHP_COMMONS_LOGGING_CONFIG;
-$SAVE_LOGGING_CONFIG= &$DPHP_COMMONS_LOGGING_CONFIG;
+$SAVE_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG;
 $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
 
 global $DPHP_DAO_CONFIG_MYSQL_SITE;
@@ -66,6 +66,10 @@ if (!defined('SKIN_DIR_BACKEND')) {
     }
 
     $skinDir = SITE_SKINS_ROOT_DIR . "$siteSkin/";
+    if (!is_dir($skinDir)) {
+        // fallback to default skin
+        $skinDir = SITE_SKINS_ROOT_DIR . "default/";
+    }
     define('SKIN_DIR_EX', $skinDir);
     $params = Array('templateDir' => $skinDir,
             'prefix' => 'page_',
