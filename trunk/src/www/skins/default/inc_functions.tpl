@@ -1,97 +1,68 @@
+[:assign var="LANGUAGE" value=$MODEL.language scope=root:]
+[:if isset($MODEL.user):]
+    [:assign var="USER" value=$MODEL.user scope=root:]
+[:/if:]
+[:if isset($MODEL.form):]
+    [:assign var="FORM" value=$MODEL.form scope=root:]
+[:/if:]
+
 [:function name="displayCategoryList" categotyList=NULL:]
-    [:assign var="_styleOuterLeft" value=['middle-column-box-left-blue','middle-column-box-left-green','middle-column-box-left-yellow','middle-column-box-left-red']:]
-    [:assign var="_styleOuterRight" value=['middle-column-box-right-blue','middle-column-box-right-green','middle-column-box-right-yellow','middle-column-box-right-red']:]
-    [:assign var="_styleInner" value=['middle-column-box-title-blue','middle-column-box-title-green','middle-column-box-title-yellow','middle-column-box-title-red']:]
-    [:assign var="_counter" value=0:]
-    <div class="middle-column-left">
-        [:for $i = 0 to round(count($categoryList)/2)-1:]
-            [:assign var="_cat" value=$categoryList[$i]:]
-            <!-- Middle column left box -->
-            <div class="[:$_styleOuterLeft[$_counter]:]">
-                <div class="[:$_styleInner[$_counter]:] blockTitle"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
-                <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
-                    src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
-            </div>
-            [:assign var="_counter" value=$_counter+1:]
-            [:if $_counter ge count($_styleOuterLeft):][:assign var="_counter" value=0:][:/if:]
-        [:/for:]
-    </div>
-
-    [:if $_counter ge count($_styleOuterRight):][:assign var="_counter" value=0:][:/if:]
-    <div class="middle-column-right">
-        [:for $i = round(count($categoryList)/2) to count($categoryList)-1:]
-            [:assign var="_cat" value=$categoryList[$i]:]
-            <!-- Middle column right box -->
-            <div class="[:$_styleOuterRight[$_counter]:]">
-                <div class="[:$_styleInner[$_counter]:] blockTitle"><a href="[:$_cat->getUrlView():]">[:$_cat->getTitle()|escape:'html':]</a></div>
-                <p align="center"><a href="[:$_cat->getUrlView():]"><img border="0" width="150" height="150" alt=""
-                    src="[:if $_cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$_cat->getUrlThumbnail():][:/if:]"/></a>
-            </div>
-            [:assign var="_counter" value=$_counter+1:]
-            [:if $_counter ge count($_styleOuterRight):][:assign var="_counter" value=0:][:/if:]
-        [:/for:]
-    </div>
+    <ul class="thumbnails">
+        [:foreach $categoryList as $_cat:]
+            [:if $_cat->getUrlThumbnail()=='':]
+                [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+            [:else:]
+                [:assign var="_urlThumbnail" value=$_cat->getUrlThumbnail():]
+            [:/if:]
+            <li class="span3">
+                <div class="thumbnail">
+                    <img alt="[:$_cat->getTitle()|escape:'html':]" src="[:$_urlThumbnail:]"/>
+                    <div class="caption">
+                        <h5>[:$_cat->getTitle()|escape:'html':]</h5>
+                        <p>[:$_cat->getDescription():]</p>
+                    </div>
+                </div>
+            </li>
+        [:foreachelse:]
+            <li class="span12">[:$MODEL.language->getMessage('msg.nodata'):]</li>
+        [:/foreach:]
+    </ul>
 [:/function:]
 
-[:function name="displaySubCategoryList" categotyList=NULL:]
-<table style="width: 98%; margin-left: auto; margin-right: auto">
-    [:foreach $categoryList as $cat:]
-        [:if $cat@index % 3 == 0:][:if !$cat@first:]</tr>[:/if:]<tr>[:/if:]
-        <td width="25%">
-            <a href="[:$cat->getUrlView():]"><img border="1" width="50" height="50" alt="" style="float: left; margin: 4px"
-                src="[:if $cat->getUrlThumbnail()=='':]img/img_general.jpg[:else:][:$cat->getUrlThumbnail():][:/if:]"/><small>[:$cat->getTitle()|escape:'html':]</small></a>
-        </td>
-        [:if $cat@last:]
-            [:for $i=($cat@index % 3) to 1:]
-                <td>&nbsp;</td>
-            [:/for:]
-            </tr>
-        [:/if:]
-    [:/foreach:]
-</table>
+[:function name="displayCategoryItemList" itemList=NULL cart=NULL:]
+    <ul class="thumbnails">
+        [:foreach $itemList as $_item:]
+            [:call name="displayCategoryItem" cart=$cart item=$_item:]
+        [:foreachelse:]
+            <li class="span12">[:$MODEL.language->getMessage('msg.nodata'):]</li>
+        [:/foreach:]
+    </ul>
 [:/function:]
 
-[:function name=displayCategoryItem cart=NULL item=NULL picAlign='left':]
-    <div>
-        [:if $item->getUrlThumbnail()=='':]
-            [:assign var="_urlThumbnail" value="img/img_general.jpg":]
-        [:else:]
-            [:assign var="_urlThumbnail" value=$item->getUrlThumbnail():]
-        [:/if:]
-        [:if $item->getUrlImage()=='':]
-            [:assign var="_urlImage" value="img/img_general.jpg":]
-        [:else:]
-            [:assign var="_urlImage" value=$item->getUrlImage():]
-        [:/if:]
-        <a href="[:$item->getUrlView():]" onmouseover="ddrivetip('<img src=\'[:$_urlImage:]\' alt=\'\' border=\'0\';>', 'white'[:if $item->getImageWidth() gt 0:], [:$item->getImageWidth():][:else:], 100[:/if:]);" onmouseout="hideddrivetip();"><img src="[:$_urlThumbnail:]"
-            class="[:if $picAlign=='left':]middle-column-img-left[:else:]middle-column-img-right[:/if:]" width="100" height="100" alt="" /></a>
-        <small>
-            <!-- [:$MODEL.language->getMessage('msg.item.price'):]: --><strong>[:$item->getPriceForDisplay():]</strong>
-            <br />
-            [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$_item->getVendor()|escape:'html':]</strong>
-        </small>
-    </div>
-    <div>
-        <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/addToCart">
-            <small>
-                <a href="[:$cart->getUrlView():]">[:$MODEL.language->getMessage('msg.inCart'):]: <strong>
-                    [:if $cart->existInCart($_item):]
-                        [:$cart->getItem($_item)->getQuantity():]
-                    [:else:]
-                        0
-                    [:/if:]
-                </strong></a>
-                <br />
-                <!-- [:$MODEL.language->getMessage('msg.addToCart'):]: -->
-                <input type="hidden" name="item" value="[:$_item->getId():]" />
-                <input type="text" name="quantity" value="1" style="width: 20px"/>
-                <input type="image" src="img/cart_put.png" align="top" title="[:$MODEL.language->getMessage('msg.add'):]"/>
-                <!--
-                <input type="submit" value="[:$MODEL.language->getMessage('msg.add'):]" style="font-size: xx-small;"/>
-                -->
-            </small>
-         </form>
-     </div>
+[:function name=displayCategoryItem cart=NULL item=NULL:]
+    [:if $item->getUrlThumbnail()=='':]
+        [:assign var="_urlThumbnail" value="img/img_general.jpg":]
+    [:else:]
+        [:assign var="_urlThumbnail" value=$item->getUrlThumbnail():]
+    [:/if:]
+    <li class="span3">
+        <div class="thumbnail">
+            <img src="[:$_urlThumbnail:]" alt="[:$item->getTitle()|escape:'html':]" width="100px" height="100px" />  
+            <div class="caption">
+                <h5>[:if $item->getCode()!='':][:$item->getCode()|escape:'html':] | [:/if:][:$item->getTitle()|escape:'html':]</h5>
+                <p>[:$LANGUAGE->getMessage('msg.item.price'):]: <strong>[:$item->getPriceForDisplay():]</strong></p>
+                <p>[:if $item->getVendor()!='':][:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$item->getVendor()|escape:'html':]</strong>[:else:]&nbsp;[:/if:]</p>
+                <p>
+                    <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/addToCart">
+                        <input type="hidden" name="item" value="[:$item->getId():]" />
+                        <input type="hidden" name="quantity" value="1" />
+                        <button onclick="this.form.submit(); return 0;" class="btn btn-warning">[:$LANGUAGE->getMessage('msg.addToCart'):]</button>
+                        [:if $cart->existInCart($item):]| [:$LANGUAGE->getMessage('msg.inCart'):]: <strong>[:$cart->getItem($item)->getQuantity():]</strong>[:/if:]
+                    </form>
+                </p>
+            </div>
+        </div>
+    </li>
 [:/function:]
 
 [:function name=printFormHeader form=NULL:]
