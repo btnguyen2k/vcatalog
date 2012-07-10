@@ -292,7 +292,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         foreach ($cat->getChildren() as $child) {
             $params[] = $child->getId();
         }
-        $params = Array('categoryIds' => $params);
+        $params = Array(self::PARAM_CATEGORY_IDS => $params);
         $result = $this->execCount($sqlStm, $params);
         return $result;
     }
@@ -558,7 +558,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         // build the final parameters and return
         $params = Array('searchTypes' => $paramSearchTypes,
                 'tags' => $paramSearchTerms,
-                'categoryIds' => $paramCats);
+                self::PARAM_CATEGORY_IDS => $paramCats);
         return $params;
     }
 
@@ -571,7 +571,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
         if ($params === NULL) {
             return 0;
         }
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params['categoryIds']) === 0 ? 'NoCategory' : 'Category'));
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::PARAM_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
         return $this->execCount($sqlStm, $params);
     }
 
@@ -598,7 +598,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
 
         // pre-open a connection so that subsequence operations will reuse it
         $conn = $this->getConnection();
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params['categoryIds']) === 0 ? 'NoCategory' : 'Category'));
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__ . (count($params[self::PARAM_CATEGORY_IDS]) === 0 ? 'NoCategory' : 'Category'));
         $result = Array();
         $rows = $this->execSelect($sqlStm, $params);
         if ($rows !== NULL && count($rows) > 0) {

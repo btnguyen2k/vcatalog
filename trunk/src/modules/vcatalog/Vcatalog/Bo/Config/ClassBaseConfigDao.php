@@ -2,7 +2,11 @@
 abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao implements
         Vcatalog_Bo_Config_IConfigDao {
 
+    const PARAM_KEY = 'conf_key';
+    const PARAM_VALUE = 'conf_value';
+
     /**
+     *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
@@ -14,6 +18,7 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao impleme
 
     /**
      * (non-PHPdoc)
+     *
      * @see Quack_Bo_BaseDao::getCacheName()
      */
     public function getCacheName() {
@@ -37,6 +42,7 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao impleme
     }
 
     /**
+     *
      * @see Vcatalog_Bo_Config_IConfigDao::loadConfig()
      */
     public function loadConfig($key) {
@@ -44,10 +50,10 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao impleme
         $result = $this->getFromCache($cacheKey);
         if ($result === NULL) {
             $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-            $params = Array('key' => $key);
+            $params = Array(self::PARAM_KEY => $key);
             $rows = $this->execSelect($sqlStm, $params);
             if ($rows !== NULL && count($rows) > 0) {
-                $result = $rows[0]['value'];
+                $result = $rows[0][self::PARAM_VALUE];
                 $this->putToCache($cacheKey, $result);
             }
         }
@@ -55,11 +61,12 @@ abstract class Vcatalog_Bo_Config_BaseConfigDao extends Quack_Bo_BaseDao impleme
     }
 
     /**
+     *
      * @see Vcatalog_Bo_Config_IConfigDao::saveConfig()
      */
     public function saveConfig($key, $value) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array('key' => $key, 'value' => $value);
+        $params = Array(self::PARAM_KEY => $key, self::PARAM_VALUE => $value);
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($key, $value);
         return $result;
