@@ -1,11 +1,11 @@
 <?php
 class Vcatalog_Bo_TextAds_BoAds extends Quack_Bo_BaseBo {
 
-    const COL_ID = 'adsId';
-    const COL_TITLE = 'adsTitle';
-    const COL_URL = 'adsUrl';
-    const COL_CLICKS = 'adsClicks';
-    const COL_TIMESTAMP = 'adsTimestamp';
+    const COL_ID = 'ads_id';
+    const COL_TITLE = 'ads_title';
+    const COL_URL = 'ads_url';
+    const COL_CLICKS = 'ads_clicks';
+    const COL_TIMESTAMP = 'ads_timestamp';
 
     private $id, $title, $url, $clicks, $timestamp;
 

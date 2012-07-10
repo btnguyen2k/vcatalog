@@ -1,4 +1,6 @@
 <?php
+define('PRODUCT_CODE', 'VCATALOG');
+
 define('WORD_SPLIT_PATTERN', '/[\s,\."\';:]+/');
 
 define('CONFIG_SITE_COPYRIGHT', 'site_copyright');

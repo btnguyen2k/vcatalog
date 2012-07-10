@@ -1,24 +1,22 @@
 <?php
 /**
- * This class extends the {@link Ddth_Commons_Logging_AbstractLog} and utilizes MySQL to store logs.
+ * This class extends the {@link Ddth_Commons_Logging_AbstractLog} and utilizes PgSQL to store logs.
  *
  * @package     Vcatalog
  * @subpackage  Logging
  * @author      Thanh Ba Nguyen <btnguyen2k@gmail.com>
  * @since       Class available since v0.1
  */
-class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
+class Vcatalog_Logging_PgsqlLog extends Ddth_Commons_Logging_AbstractLog {
 
-    const SETTING_MYSQL_HOST = 'mysql.host';
-    const SETTING_MYSQL_PORT = 'mysql.port';
-    const SETTING_MYSQL_USERNAME = 'mysql.username';
-    const SETTING_MYSQL_PASSWORD = 'mysql.password';
-    const SETTING_MYSQL_DBNAME = 'mysql.dbname';
-    const SETTING_MYSQL_SETUP_SQLS = 'mysql.setupSqls';
-    const SETTING_TABLE_NAME = 'mysql.table_name';
+    const SETTING_PGSQL_HOST = 'pgsql.host';
+    const SETTING_PGSQL_PORT = 'pgsql.port';
+    const SETTING_PGSQL_USERNAME = 'pgsql.username';
+    const SETTING_PGSQL_PASSWORD = 'pgsql.password';
+    const SETTING_PGSQL_DBNAME = 'pgsql.dbname';
+    const SETTING_TABLE_NAME = 'pgsql.table_name';
 
-    private $mysqlHost, $mysqlPort, $mysqlUsername, $mysqlPassword, $mysqlDbName;
-    private $mysqlSetupSqls;
+    private $pgsqlHost, $pgsqlPort, $pgsqlUsername, $pgsqlPassword, $pgsqlDbName;
     private $tableName;
 
     /**
@@ -28,20 +26,19 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
      */
     public function init($config) {
         parent::init($config);
-        $this->mysqlHost = isset($config[self::SETTING_MYSQL_HOST]) ? $config[self::SETTING_MYSQL_HOST] : 'localhost';
-        $this->mysqlPort = isset($config[self::SETTING_MYSQL_PORT]) ? $config[self::SETTING_MYSQL_PORT] : 3306;
-        $this->mysqlUsername = isset($config[self::SETTING_MYSQL_USERNAME]) ? $config[self::SETTING_MYSQL_USERNAME] : '';
-        $this->mysqlPassword = isset($config[self::SETTING_MYSQL_PASSWORD]) ? $config[self::SETTING_MYSQL_PASSWORD] : '';
-        $this->mysqlDbName = isset($config[self::SETTING_MYSQL_DBNAME]) ? $config[self::SETTING_MYSQL_DBNAME] : NULL;
-        $this->mysqlSetupSqls = isset($config[self::SETTING_MYSQL_SETUP_SQLS]) ? $config[self::SETTING_MYSQL_SETUP_SQLS] : Array();
+        $this->pgsqlHost = isset($config[self::SETTING_PGSQL_HOST]) ? $config[self::SETTING_PGSQL_HOST] : 'localhost';
+        $this->pgsqlPort = isset($config[self::SETTING_PGSQL_PORT]) ? $config[self::SETTING_PGSQL_PORT] : 5432;
+        $this->pgsqlUsername = isset($config[self::SETTING_PGSQL_USERNAME]) ? $config[self::SETTING_PGSQL_USERNAME] : '';
+        $this->pgsqlPassword = isset($config[self::SETTING_PGSQL_PASSWORD]) ? $config[self::SETTING_PGSQL_PASSWORD] : '';
+        $this->pgsqlDbName = isset($config[self::SETTING_PGSQL_DBNAME]) ? $config[self::SETTING_PGSQL_DBNAME] : NULL;
         $this->tableName = isset($config[self::SETTING_TABLE_NAME]) ? $config[self::SETTING_TABLE_NAME] : NULL;
 
-        if ($this->mysqlDbName === NULL || $this->mysqlDbName === '') {
-            $msg = 'Please specify a MySQL database!';
+        if ($this->pgsqlDbName === NULL || $this->pgsqlDbName === '') {
+            $msg = 'Please specify a PgSQL database!';
             throw new Exception($msg);
         }
         if ($this->tableName === NULL || $this->tableName === '') {
-            $msg = 'Please specify a MySQL table!';
+            $msg = 'Please specify a PgSQL table!';
             throw new Exception($msg);
         }
     }
@@ -54,33 +51,23 @@ class Vcatalog_Logging_MysqlLog extends Ddth_Commons_Logging_AbstractLog {
      * @param Exception $e
      */
     protected function writeLog($logLevel, $logMsg, $e) {
-        $conn = @mysql_connect($this->mysqlHost, $this->mysqlUsername, $this->mysqlPassword, TRUE);
+        $connStr = "host={$this->pgsqlHost} port={$this->pgsqlHost} dbname={$this->pgsqlDbName} user={$this->pgsqlUsername} password={$this->pgsqlPassword} options='--client_encoding=UTF8'";
+        $conn = @pg_connect($connStr, PGSQL_CONNECT_FORCE_NEW);
         if ($conn === FALSE || $conn === NULL) {
-            $msg = "Can not connect to MySQL server {$this->mysqlHost}!";
+            $msg = "Can not connect to PgSQL server {$this->pgsqlHost}!";
             throw new Exception($msg);
         }
-        if (!mysql_select_db($this->mysqlDbName, $conn)) {
-            $msg = "Can not switch to database {$this->mysqlDbName}!";
-            throw new Exception($msg);
-        }
-
-        if (is_array($this->mysqlSetupSqls) && count($this->mysqlSetupSqls) > 0) {
-            foreach ($this->mysqlSetupSqls as $sql) {
-                mysql_query($sql, $conn);
-            }
-        }
-
         $stacktrace = $e !== NULL ? $e->getTraceAsString() : NULL;
         $className = $e !== NULL ? $e->getFile() : '';
         $sql = "INSERT INTO {$this->tableName} (logTimestamp, logLevel, logClass, logMessage, logStacktrace)";
         $sql .= "VALUES (";
         $sql .= time() . ",";
-        $sql .= "'" . mysql_real_escape_string($logLevel, $conn) . "',";
-        $sql .= "'" . mysql_real_escape_string($className, $conn) . "',";
-        $sql .= "'" . mysql_real_escape_string($logMsg, $conn) . "',";
-        $sql .= "'" . mysql_real_escape_string($stacktrace, $conn) . "')";
-        mysql_query($sql, $conn);
-        mysql_close($conn);
+        $sql .= "'" . pg_escape_string($conn, $logLevel) . "',";
+        $sql .= "'" . pg_escape_string($conn, $className) . "',";
+        $sql .= "'" . pg_escape_string($conn, $logMsg) . "',";
+        $sql .= "'" . pg_escape_string($conn, $stacktrace) . "')";
+        pg_query($conn, $sql);
+        pg_close($conn);
     }
 
     /**
