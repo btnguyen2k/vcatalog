@@ -22,6 +22,7 @@ Dzit_Config::set(Dzit_Config::CONF_DISPATCHER, new $dispatcherClass());
  */
 /* NOTE: REMEMBER TO CONFIGURE YOUR OWN APPLICATION'S ROUTING HERE! */
 $router = Array('*' => 'Vcatalog_Controller_HomeController',
+        'benchmark' => 'Vcatalog_Controller_BenchmarkController',
         'login' => 'Vcatalog_Controller_LoginController',
         'logout' => 'Vcatalog_Controller_LogoutController',
         'ads' => 'Vcatalog_Controller_ViewAdsController',

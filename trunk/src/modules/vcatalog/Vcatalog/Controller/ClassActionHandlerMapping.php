@@ -5,6 +5,10 @@ include_once 'Yadif/Container.php';
 
 global $YADIF_CONFIG;
 $YADIF_CONFIG = Array(
+        'Vcatalog_Controller_BenchmarkController' => Array(
+                'class' => 'Vcatalog_Controller_BenchmarkController',
+                'scope' => 'singleton'),
+
         'Paperclip_Controller_ViewThumbnailController' => Array(
                 'class' => 'Paperclip_Controller_ViewThumbnailController',
                 'scope' => 'singleton'),
@@ -85,7 +89,7 @@ $YADIF_CONFIG = Array(
                         Array('method' => 'setRequireAuthentication', 'arguments' => Array(TRUE)),
                         Array('method' => 'setAllowedUserGroups', 'arguments' => Array(1)))),
 
-		'Vcatalog_Controller_Admin_DashboardController' => Array(
+        'Vcatalog_Controller_Admin_DashboardController' => Array(
                 'class' => 'Vcatalog_Controller_Admin_DashboardController',
                 'scope' => 'singleton',
                 'methods' => Array(

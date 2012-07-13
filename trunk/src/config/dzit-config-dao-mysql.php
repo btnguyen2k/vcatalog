@@ -11,6 +11,7 @@ $DPHP_DAO_CONFIG_MYSQL_SITE = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_B
         'dphp-dao.mysql.password' => 'gpvm@st3r',
         'dphp-dao.mysql.database' => 'gpv',
         'dphp-dao.mysql.setupSqls' => Array("SET NAMES 'utf8'"),
+        'dao._' => 'Quack_Bo_ConnectionHolderDao',
         DAO_SITE => Array('class' => 'Quack_Bo_Site_MysqlSiteDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_site.base.properties'));
 
@@ -22,6 +23,7 @@ $DPHP_DAO_CONFIG_MYSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMy
         'dphp-dao.mysql.password' => 'vcatalog',
         'dphp-dao.mysql.database' => 'vcatalog',
         'dphp-dao.mysql.setupSqls' => Array("SET NAMES 'utf8'"),
+        'dao._' => 'Quack_Bo_ConnectionHolderDao',
         DAO_SESSION => Array('class' => 'Quack_Bo_SessionS_MysqlSessionDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_session.base.properties'),
         DAO_USER => Array('class' => 'Vcatalog_Bo_User_MysqlUserDao',
@@ -37,7 +39,7 @@ $DPHP_DAO_CONFIG_MYSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMy
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_textads.base.properties'),
         DAO_PROFILE => Array('class' => 'Quack_Bo_Profile_MysqlProfileDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_profile.base.properties'),
-        DAO_CONFIG => Array('class' => 'Vcatalog_Bo_Config_MysqlConfigDao',
+        DAO_CONFIG => Array('class' => 'Quack_Bo_AppConfig_MysqlAppConfigDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_config.base.properties'),
         DAO_PAPERCLIP => Array('class' => 'Paperclip_Bo_MysqlPaperclipDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_paperclip.base.properties'));

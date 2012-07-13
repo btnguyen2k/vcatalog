@@ -17,10 +17,10 @@ function bootstrap_getProductConfig() {
     }
     $product = $site->getProduct(PRODUCT_CODE);
     if ($product === NULL) {
-        die("Product '{PRODUCT_CODE}' does not exist!");
+        die("Product '" . PRODUCT_CODE . "' does not exist!");
     }
     if ($product->isExpired()) {
-        die("Product '{PRODUCT_CODE}' has expired!");
+        die("Product '" . PRODUCT_CODE . "' has expired!");
     }
     $prodConfig = $product->getProductConfigMap();
     return $prodConfig;
@@ -32,6 +32,11 @@ function bootstrap_configureSiteLogging() {
     global $DPHP_COMMONS_LOGGING_CONFIG;
     $SAVE_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG;
     $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
+
+    // pre-open db connection(s) for latter use
+    global $DPHP_DAO_CONFIG_SITE;
+    $_dao = Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_SITE)->getDao('dao._');
+    $_dao->getConnection();
 
     $prodConfig = bootstrap_getProductConfig();
 
@@ -83,6 +88,10 @@ function bootstrap_configureDAOs() {
     } else {
         die("Db type {$prodConfig['DB']['TYPE']} is not supported!");
     }
+
+    // pre-open db connection(s) for latter use
+    $_dao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao('dao._');
+    $_dao->getConnection();
 }
 
 function bootstrap_configSkin() {
@@ -90,11 +99,11 @@ function bootstrap_configSkin() {
         // if it's not backend, we switch to user-defined skin if possible
         $configDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_CONFIG);
         $siteSkin = $configDao->loadConfig(CONFIG_SITE_SKIN);
-        if ($siteSkin == NULL || $siteSkin == '') {
+        if ($siteSkin == NULL || $siteSkin->getValue() == '') {
             $siteSkin = 'default';
         }
 
-        $skinDir = SITE_SKINS_ROOT_DIR . "$siteSkin/";
+        $skinDir = SITE_SKINS_ROOT_DIR . "{$siteSkin->getValue()}/";
         if (!is_dir($skinDir)) {
             // fallback to default skin
             $skinDir = SITE_SKINS_ROOT_DIR . "default/";
