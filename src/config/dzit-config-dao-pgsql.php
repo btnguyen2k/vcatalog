@@ -13,6 +13,7 @@ $DPHP_DAO_CONFIG_PGSQL_SITE = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Pgsql_B
         // 'dphp-dao.pgsql.connectionString' => "host=127.0.0.1 port=5432
         // dbname=gpv user=gpv password=gpvm@st3r
         // options='--client_encoding=UTF8'",
+        'dao._' => 'Quack_Bo_ConnectionHolderDao',
         DAO_SITE => Array('class' => 'Quack_Bo_Site_PgsqlSiteDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_site.base.properties'));
 
@@ -26,6 +27,7 @@ $DPHP_DAO_CONFIG_PGSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Pgsql_BasePg
         // 'dphp-dao.pgsql.connectionString' => "host=127.0.0.1 port=5432
         // dbname=vcatalog user=vcatalog password=vcatalog
         // options='--client_encoding=UTF8'",
+        'dao._' => 'Quack_Bo_ConnectionHolderDao',
         DAO_SESSION => Array('class' => 'Quack_Bo_SessionS_PgsqlSessionDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_session.base.properties'),
         DAO_USER => Array('class' => 'Vcatalog_Bo_User_PgsqlUserDao',
@@ -41,7 +43,7 @@ $DPHP_DAO_CONFIG_PGSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Pgsql_BasePg
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_textads.base.properties'),
         DAO_PROFILE => Array('class' => 'Quack_Bo_Profile_PgsqlProfileDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_profile.base.properties'),
-        DAO_CONFIG => Array('class' => 'Vcatalog_Bo_Config_PgsqlConfigDao',
+        DAO_CONFIG => Array('class' => 'Quack_Bo_AppConfig_PgsqlAppConfigDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_config.base.properties'),
         DAO_PAPERCLIP => Array('class' => 'Paperclip_Bo_PgsqlPaperclipDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_paperclip.base.properties'));

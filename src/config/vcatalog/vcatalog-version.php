@@ -1,7 +1,11 @@
 <?php
-$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.6.0.$Revision$');
+$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.7.0.$Revision$');
 define('VCATALOG_VERSION', $vCatalogVersion);
 /*
+ * * 2012-07-14: v0.7.0
+ *   - Support PgSQL
+ *   - Cache & DB connection improvement
+ *
  * * 2012-05-12: v0.6.0
  *   - New backend system
  *
