@@ -1,19 +1,19 @@
 DROP TABLE IF EXISTS app_profile_detail;
 DROP TABLE IF EXISTS app_profile;
 DROP TABLE IF EXISTS app_log;
-DROP TABLE IF EXISTS http_session;
 DROP TABLE IF EXISTS vcatalog_tag;
 DROP TABLE IF EXISTS vcatalog_group;
 DROP TABLE IF EXISTS vcatalog_user;
 DROP TABLE IF EXISTS vcatalog_paperclip;
 DROP TABLE IF EXISTS vcatalog_order_history;
-DROP TABLE IF EXISTS vcatalog_cart_detail;
+DROP TABLE IF EXISTS vcatalog_cart_item;
 DROP TABLE IF EXISTS vcatalog_cart;
 DROP TABLE IF EXISTS vcatalog_item;
 DROP TABLE IF EXISTS vcatalog_category;
 DROP TABLE IF EXISTS vcatalog_app_config;
 DROP TABLE IF EXISTS vcatalog_page;
 DROP TABLE IF EXISTS vcatalog_textads;
+DROP TABLE IF EXISTS http_session;
 
 CREATE TABLE vcatalog_textads (
     aid                 INT                 NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE vcatalog_textads (
     aclicks             INT                 NOT NULL DEFAULT 0,
     atimestamp          TIMESTAMP,
     PRIMARY KEY (aid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_page (
     pid                 VARCHAR(32)         NOT NULL,
@@ -35,13 +35,13 @@ CREATE TABLE vcatalog_page (
     ptitle              VARCHAR(128)        NOT NULL DEFAULT '',
     pcontent            TEXT,
     PRIMARY KEY (pid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_app_config (
     conf_key            VARCHAR(32)         NOT NULL,
     conf_value          TEXT,
     PRIMARY KEY (conf_key)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('site_name', 'vCatalog');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
@@ -104,7 +104,7 @@ CREATE TABLE app_log(
     logMessage          TEXT,
     logStacktrace       TEXT,
     PRIMARY KEY (logid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE app_profile (
     pid                 VARCHAR(16)         NOT NULL,
@@ -113,16 +113,17 @@ CREATE TABLE app_profile (
     pduration           DOUBLE              NOT NULL DEFAULT 0.0,
     pdetail             TEXT,
     PRIMARY KEY (pid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE app_profile_detail (
     pid                 VARCHAR(16)         NOT NULL,
     pdid                VARCHAR(16)         NOT NULL,
         INDEX (pid, pdid),
+        FOREIGN KEY (pid) REFERENCES app_profile(pid) ON DELETE CASCADE,
     pdparent_id         VARCHAR(16),
     pdname              VARCHAR(64),
     pdduration          DOUBLE              NOT NULL DEFAULT 0.0
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE http_session (
     session_id                  VARCHAR(32)             NOT NULL,
@@ -130,14 +131,14 @@ CREATE TABLE http_session (
         INDEX (session_timestamp),
     session_data               LONGTEXT,
     PRIMARY KEY(session_id)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_group (
     gid             INT                 NOT NULL AUTO_INCREMENT,
     gname           VARCHAR(32),
     gdesc           VARCHAR(255),
     PRIMARY KEY (gid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 INSERT INTO vcatalog_group (gid, gname, gdesc)
 VALUES (1, 'Administrator', 'Administrator has all permissions!');
 INSERT INTO vcatalog_group (gid, gname, gdesc)
@@ -156,7 +157,7 @@ CREATE TABLE vcatalog_user (
     ufullname       VARCHAR(64),
     ulocation       VARCHAR(64),
     PRIMARY KEY (uid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 -- Administrator account, password is "password" (without quotes, of course!)
 INSERT INTO vcatalog_user (uid, uusername, uemail, upassword, ugroup_id)
 VALUES (1, 'admin', 'admin@localhost', '5f4dcc3b5aa765d61d8327deb882cf99', 1);
@@ -171,7 +172,7 @@ CREATE TABLE vcatalog_category (
     cimage_id       VARCHAR(64),
         INDEX (cimage_id),
     PRIMARY KEY (cid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_item (
     iid             INT                     NOT NULL AUTO_INCREMENT,
@@ -179,6 +180,7 @@ CREATE TABLE vcatalog_item (
         INDEX (iactive),
     icategory_id    INT,
         INDEX (icategory_id),
+        FOREIGN KEY (icategory_id) REFERENCES vcatalog_category(cid) ON DELETE RESTRICT,
     ititle          VARCHAR(64)             NOT NULL,
     idesc           TEXT,
     ivendor         VARCHAR(64),
@@ -199,7 +201,7 @@ CREATE TABLE vcatalog_item (
     inew_item       INT                     NOT NULL DEFAULT 0,
         INDEX (inew_item),
     PRIMARY KEY (iid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_tag (
     titem_id        INT                     NOT NULL,
@@ -207,8 +209,9 @@ CREATE TABLE vcatalog_tag (
         INDEX (ttag),
     ttype           INT                     NOT NULL DEFAULT 0,
         INDEX (ttype),
-    PRIMARY KEY (titem_id, ttag, ttype)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+    PRIMARY KEY (titem_id, ttag, ttype),
+    FOREIGN KEY (titem_id) REFERENCES vcatalog_item(iid) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_cart (
     csession_id         VARCHAR(32)             NOT NULL,
@@ -218,16 +221,18 @@ CREATE TABLE vcatalog_cart (
         INDEX (cupdate_timestamp),
     cuser_id            INT                     NOT NULL DEFAULT 0,
         INDEX (cuser_id),
-    PRIMARY KEY (csession_id)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+    PRIMARY KEY (csession_id),
+    FOREIGN KEY (csession_id) REFERENCES http_session(session_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_cart_item (
     csession_id         VARCHAR(64)             NOT NULL,
     citem_id            INT                     NOT NULL,
     cquantity           DECIMAL(10,2)           NOT NULL,
     cprice              DECIMAL(10,2)           NOT NULL,
-    PRIMARY KEY (csession_id, citem_id)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+    PRIMARY KEY (csession_id, citem_id),
+    FOREIGN KEY (csession_id) REFERENCES http_session(session_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_paperclip (
     pid             VARCHAR(64)             NOT NULL,
@@ -243,4 +248,4 @@ CREATE TABLE vcatalog_paperclip (
     pis_draft       INT                     NOT NULL DEFAULT 0,
         INDEX (pis_draft),
     PRIMARY KEY (pid)
-) ENGINE=MYISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
