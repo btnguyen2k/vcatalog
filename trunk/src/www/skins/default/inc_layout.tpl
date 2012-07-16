@@ -1,5 +1,5 @@
 [:include file='inc_functions.tpl':][:include file='fragment_html_header.tpl':]
-<body>
+<body >
     [:include file='fragment_page_header.tpl':]
     
     <div class="container-fluid">
@@ -8,17 +8,26 @@
             [:else:]
                 [:assign var="_MAIN_CONTENT_CLASS_" value="span9":]
             [:/if:]
-            [:if !isset($DISABLE_COLUMN_LEFT):]
-                <div class="span3">
-                    [:include file='inc_column_left.tpl':]
-                </div>
-            [:/if:]
+           
             
-            [:if isset($CONTENT):][:include file=$CONTENT:][:/if:]
+            <table border="0" >
+                <tr>
+                	<td valign="top">
+                		[:if !isset($DISABLE_COLUMN_LEFT):]                
+                    		[:include file='inc_column_left.tpl':]
+            			[:/if:]
+                	</td>
+                	<td valign="top" >
+                		[:if isset($CONTENT):][:include file=$CONTENT:][:/if:]
+                	</td>                	
+                <tr>
+            </table>
+          
+             
     </div>
 
     
-    [include file='fragment_page_footer.tpl']
+    [:include file='fragment_page_footer.tpl':]
     
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->

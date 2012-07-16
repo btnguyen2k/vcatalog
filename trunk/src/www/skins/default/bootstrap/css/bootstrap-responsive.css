@@ -317,7 +317,7 @@
             box-sizing: border-box;
   }
   .row-fluid [class*="span"]:first-child {
-    margin-left: 0;
+    /*margin-left: 0*/;
   }
   .row-fluid .span12 {
     width: 99.999999993%;
@@ -669,10 +669,10 @@
     width: 60px;
   }
   .thumbnails {
-    margin-left: -30px;
+    margin-left: -20px;
   }
   .thumbnails > li {
-    margin-left: 30px;
+    margin-left: 20px;
   }
   .row-fluid .thumbnails {
     margin-left: 0;
