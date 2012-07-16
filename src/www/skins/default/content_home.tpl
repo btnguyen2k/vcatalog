@@ -1,15 +1,206 @@
-<div class="[:$_MAIN_CONTENT_CLASS_:]">
-    <div class="container-fluid">
-        [:if isset($MODEL.newItems) && count($MODEL.newItems) gt 0:]
-            <h1>[:$MODEL.language->getMessage('msg.newItems'):]</h1>
-            <hr/>
-            [:call name="displayCategoryItemList" itemList=$MODEL.newItems cart=$MODEL.cart:]
-        [:else:]
-            [:if isset($MODEL.categoryList) && count($MODEL.categoryList) gt 0:]
-                <h1>[:$MODEL.language->getMessage('msg.categories'):]</h1>
-                <hr/>
-                [:call name="displayCategoryList" categoryList=$MODEL.categoryList:]
-            [:/if:]
-        [:/if:]
-    </div>
-</div>
+
+<ul class="thumbnails">
+    <li class="span3 grid-image" style="position: relative;">    
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px;">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              	<span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              	<span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              	<span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              	<span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              	<span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+       <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li>
+     <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li> <li class="span3 grid-image" style="position: relative;">
+      	<a href="javascript:void(0)" class="thumbnail">
+      		<div class="caption category-header" >Product Name</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+       		<img src="http://placehold.it/260x180" alt="">           
+     	</a> 
+     
+     	<div class="caption" >     		
+     		<div class="btn-group" style="padding-top: 10px;float: left;">
+              <button class="btn" type="button">View</button><button class="btn" type="button "><img alt="" src="img/cart_add.png"></button>
+              </div>
+              <div class="product-info">
+              		<br/>
+              <span class="label label-important" style="font-size: 16px;">90,000 VND</span>
+              </div>
+     	</div>     	
+    </li> 
+ </ul>
