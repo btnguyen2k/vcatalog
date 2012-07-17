@@ -10,9 +10,6 @@
                 <hr/>
                 [:call name="displayCategoryList" categoryList=$MODEL.categoryList:]
             [:/if:]
-           
         [:/if:]
-     	
     </div>
-   
 </div>

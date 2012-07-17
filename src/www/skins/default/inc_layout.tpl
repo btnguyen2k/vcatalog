@@ -10,9 +10,9 @@
             [:/if:]
            
             
-            <table border="0" >
+            <table border="0" width="100%" align="left" >
                 <tr>
-                	<td valign="top">
+                	<td valign="top" width="20%" nowrap="nowrap">
                 		[:if !isset($DISABLE_COLUMN_LEFT):]                
                     		[:include file='inc_column_left.tpl':]
             			[:/if:]

@@ -7,22 +7,28 @@
 [:/if:]
 
 [:function name="displayCategoryList" categotyList=NULL:]
-    <ul class="thumbnails">
+    <ul class="thumbnails" style="padding-left: 15px">
         [:foreach $categoryList as $_cat:]
             [:if $_cat->getUrlThumbnail()=='':]
                 [:assign var="_urlThumbnail" value="img/img_general.jpg":]
             [:else:]
                 [:assign var="_urlThumbnail" value=$_cat->getUrlThumbnail():]
             [:/if:]
-            <li class="span3">
-                <div class="thumbnail">
-                    <img alt="[:$_cat->getTitle()|escape:'html':]" src="[:$_urlThumbnail:]"/>
-                    <div class="caption">
-                        <h5>[:$_cat->getTitle()|escape:'html':]</h5>
-                        <p>[:$_cat->getDescription():]</p>
-                    </div>
-                </div>
-            </li>
+            [:if count($_cat->getChildren()) gt 0:]            
+                 <li class="span3 grid-image" name="categories" ref="popover" data-original-title="[:$_cat->getTitle()|escape:'html':]" data-content="[:$_cat->getDescription()|escape:'html':]">    
+                  	<a href="javascript:void(0)" onclick="redirect('[:$_cat->getUrlView():]')" class="thumbnail">
+                  		<div class="caption category-header" >[:$_cat->getTitle()|escape:'html':]</div>
+                   		<img alt="[:$_cat->getTitle()|escape:'html':]" src="[:$_urlThumbnail:]"/>          
+                 	</a>	
+                </li>
+           [:else:]
+           	 	<li class="span3 grid-image" name="categories" ref="popover" data-original-title="[:$_cat->getTitle()|escape:'html':]" data-content="[:$_cat->getDescription()|escape:'html':]">    
+                  	<a href="javascript:void(0)" onclick="redirect('[:$_cat->getUrlView():]')" class="thumbnail">
+                  		<div class="caption category-header" >[:$_cat->getTitle()|escape:'html':]</div>
+                   		<img alt="[:$_cat->getTitle()|escape:'html':]" src="[:$_urlThumbnail:]"/>          
+                 	</a>	
+                </li>           
+           [:/if:]
         [:foreachelse:]
             <li class="span12">[:$MODEL.language->getMessage('msg.nodata'):]</li>
         [:/foreach:]

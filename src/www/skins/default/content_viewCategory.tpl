@@ -1,6 +1,9 @@
-<div class="[:$_MAIN_CONTENT_CLASS_:]">
-    <h1><a href="[:$MODEL.urlHome:]">[:$MODEL.language->getMessage('msg.home'):]</a> | [:$MODEL.categoryObj->getTitle()|escape:'html':]</h1>
-    <hr />
+	<ul class="breadcrumb">
+      	<li>
+        	<a href="javascript:void(0)" onclick="redirect('[:$MODEL.urlHome:]')">[:$MODEL.language->getMessage('msg.home'):]</a></a> <span class="divider">/</span>
+      	</li>      	
+      	<li class="active">[:$MODEL.categoryObj->getTitle()|escape:'html':]</li>
+    </ul> 
     [:if count($MODEL.categoryObj->getChildren()) gt 0:]
         [:call name="displayCategoryList" categoryList=$MODEL.categoryObj->getChildren():]
     [:else:]
@@ -10,4 +13,4 @@
             [:call name="displayCategoryItemList" itemList=$MODEL.itemList cart=$MODEL.cart:]
         [:/if:]
     [:/if:]
-</div>
+

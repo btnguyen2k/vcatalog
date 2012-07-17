@@ -1,4 +1,4 @@
-<div class="well sidebar-nav span3" style="margin-right: 30px" >
+<div class="well sidebar-nav" style="margin-right: 25px" >
     <ul class="nav nav-list">
         <li class="nav-header"><a href="[:$MODEL.urlHome:]">[:$LANGUAGE->getMessage('msg.home'):]</a></li>
         [:if isset($MODEL.categoryTree):]
