@@ -3,7 +3,7 @@
     <li class="span3 grid-image" style="position: relative;">    
       	<a href="javascript:void(0)" class="thumbnail">
       		<div class="caption category-header" >Product Name</div>
-      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px">ID :P987457</div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px;">ID :P987457</div>
        		<img src="http://placehold.it/260x180" alt="">           
      	</a> 
      
