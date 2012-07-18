@@ -101,9 +101,11 @@ function bootstrap_configSkin() {
         $siteSkin = $configDao->loadConfig(CONFIG_SITE_SKIN);
         if ($siteSkin == NULL || $siteSkin->getValue() == '') {
             $siteSkin = 'default';
+        } else {
+            $siteSkin = $siteSkin->getValue();
         }
 
-        $skinDir = SITE_SKINS_ROOT_DIR . "{$siteSkin->getValue()}/";
+        $skinDir = SITE_SKINS_ROOT_DIR . $siteSkin . "/";
         if (!is_dir($skinDir)) {
             // fallback to default skin
             $skinDir = SITE_SKINS_ROOT_DIR . "default/";
