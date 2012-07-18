@@ -221,8 +221,7 @@ CREATE TABLE vcatalog_cart (
         INDEX (cupdate_timestamp),
     cuser_id            INT                     NOT NULL DEFAULT 0,
         INDEX (cuser_id),
-    PRIMARY KEY (csession_id),
-    FOREIGN KEY (csession_id) REFERENCES http_session(session_id) ON DELETE CASCADE
+    PRIMARY KEY (csession_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_cart_item (
@@ -231,7 +230,7 @@ CREATE TABLE vcatalog_cart_item (
     cquantity           DECIMAL(10,2)           NOT NULL,
     cprice              DECIMAL(10,2)           NOT NULL,
     PRIMARY KEY (csession_id, citem_id),
-    FOREIGN KEY (csession_id) REFERENCES http_session(session_id) ON DELETE CASCADE
+    FOREIGN KEY (csession_id) REFERENCES vcatalog_cart(csession_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE vcatalog_paperclip (
