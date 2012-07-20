@@ -32,6 +32,14 @@ global $DPHP_COMMONS_LOGGING_CONFIG;
 if (IN_DEV_ENV) {
     $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_SIMPLE;
 } else {
-    // $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_MYSQL;
-    $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_PGSQL;
+    $dbType = getenv('VCATALOG_DBTYPE');
+    if ($dbType !== FALSE) {
+        if (strtoupper($dbType) == 'MYSQL') {
+            $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_MYSQL;
+        } elseif (strtoupper($dbType) == 'PGSQL' || strtoupper($dbType) == 'POSTGRES' || strtoupper($dbType) == 'POSTGRESQL') {
+            $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_PGSQL;
+        }
+    } else {
+        $DPHP_COMMONS_LOGGING_CONFIG = &$DPHP_COMMONS_LOGGING_CONFIG_MYSQL;
+    }
 }
