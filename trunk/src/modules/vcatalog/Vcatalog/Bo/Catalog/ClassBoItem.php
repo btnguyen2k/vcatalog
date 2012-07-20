@@ -31,6 +31,7 @@ class Vcatalog_Bo_Catalog_BoItem extends Quack_Bo_BaseBo {
     private $urlImage = NULL;
 
     /**
+     *
      * @see Quack_Bo_BaseBo::getFieldMap()
      */
     protected function getFieldMap() {

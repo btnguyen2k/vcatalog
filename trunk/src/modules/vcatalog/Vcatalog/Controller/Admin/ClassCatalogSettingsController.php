@@ -36,12 +36,11 @@ class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Contr
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmCatalogSettings');
-        $dao = $this->getDao(DAO_CONFIG);
-        $form[self::FORM_FIELD_CURRENCY] = $dao->loadConfig(CONFIG_CURRENCY);
-        $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES] = $dao->loadConfig(CONFIG_PRICE_DECIMAL_PLACES);
-        $form[self::FORM_FIELD_QUANTITY_DECIMAL_PLACES] = $dao->loadConfig(CONFIG_QUANTITY_DECIMAL_PLACES);
-        $form[self::FORM_FIELD_DECIMAL_SEPARATOR] = $dao->loadConfig(CONFIG_DECIMAL_SEPARATOR);
-        $form[self::FORM_FIELD_THOUSANDS_SEPARATOR] = $dao->loadConfig(CONFIG_THOUSANDS_SEPARATOR);
+        $form[self::FORM_FIELD_CURRENCY] = $this->getAppConfig(CONFIG_CURRENCY);
+        $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES] = $this->getAppConfig(CONFIG_PRICE_DECIMAL_PLACES);
+        $form[self::FORM_FIELD_QUANTITY_DECIMAL_PLACES] = $this->getAppConfig(CONFIG_QUANTITY_DECIMAL_PLACES);
+        $form[self::FORM_FIELD_DECIMAL_SEPARATOR] = $this->getAppConfig(CONFIG_DECIMAL_SEPARATOR);
+        $form[self::FORM_FIELD_THOUSANDS_SEPARATOR] = $this->getAppConfig(CONFIG_THOUSANDS_SEPARATOR);
 
         $currency = $form[self::FORM_FIELD_CURRENCY];
         $priceDecimalPlaces = $form[self::FORM_FIELD_PRICE_DECIMAL_PLACES];

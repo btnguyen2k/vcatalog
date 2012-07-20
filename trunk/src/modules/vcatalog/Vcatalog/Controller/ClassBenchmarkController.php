@@ -18,9 +18,20 @@ class Vcatalog_Controller_BenchmarkController extends Vcatalog_Controller_BaseFl
 
     /**
      *
+     * @see Vcatalog_Controller_BaseFlowController::getViewName()
+     */
+    protected function getViewName() {
+        return $this->viewName;
+    }
+
+    /**
+     *
      * @see Dzit_Controller_FlowController::execute()
      */
     public function execute($module, $action) {
+        $mav = parent::execute($module, $action);
+        //print_r($mav);
+        return $mav;
         $userDao = $this->getDao(DAO_USER);
         Quack_Util_ProfileUtils::push('Benchmark:getUser');
         for ($i = 0; $i < 10; $i++) {

@@ -11,7 +11,7 @@ class Vcatalog_Utils {
         $priceDecimalPlaces = $configDao->loadConfig(CONFIG_PRICE_DECIMAL_PLACES);
         $decimalSeparator = $configDao->loadConfig(CONFIG_DECIMAL_SEPARATOR);
         $thousandsSeparator = $configDao->loadConfig(CONFIG_THOUSANDS_SEPARATOR);
-        return number_format($price, $priceDecimalPlaces, $decimalSeparator, $thousandsSeparator) . $currency;
+        return number_format($price, $priceDecimalPlaces->getValue(), $decimalSeparator->getValue(), $thousandsSeparator->getValue()) . $currency->getValue();
     }
 
     /**
@@ -24,6 +24,6 @@ class Vcatalog_Utils {
         $quantityDecimalPlaces = $configDao->loadConfig(CONFIG_QUANTITY_DECIMAL_PLACES);
         $decimalSeparator = $configDao->loadConfig(CONFIG_DECIMAL_SEPARATOR);
         $thousandsSeparator = $configDao->loadConfig(CONFIG_THOUSANDS_SEPARATOR);
-        return number_format($quantity, $quantityDecimalPlaces, $decimalSeparator, $thousandsSeparator);
+        return number_format($quantity, $quantityDecimalPlaces->getValue(), $decimalSeparator->getValue(), $thousandsSeparator->getValue());
     }
 }

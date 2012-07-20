@@ -39,17 +39,16 @@ class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Control
      */
     protected function buildModel_Form() {
         $form = Array('action' => $_SERVER['REQUEST_URI'], 'name' => 'frmEmailSettings');
-        $dao = $this->getDao(DAO_CONFIG);
-        $form[self::FORM_FIELD_EMAIL_ORDER_NOTIFICATION] = $dao->loadConfig(CONFIG_EMAIL_ORDER_NOTIFICATION);
-        $form[self::FORM_FIELD_EMAIL_OUTGOING] = $dao->loadConfig(CONFIG_EMAIL_OUTGOING);
-        $form[self::FORM_FIELD_EMAIL_ON_BODY] = $dao->loadConfig(CONFIG_EMAIL_ON_BODY);
-        $form[self::FORM_FIELD_EMAIL_ON_SUBJECT] = $dao->loadConfig(CONFIG_EMAIL_ON_SUBJECT);
-        $form[self::FORM_FIELD_USE_SMTP] = $dao->loadConfig(CONFIG_USE_SMTP);
-        $form[self::FORM_FIELD_SMTP_HOST] = $dao->loadConfig(CONFIG_SMTP_HOST);
-        $form[self::FORM_FIELD_SMTP_PASSWORD] = $dao->loadConfig(CONFIG_SMTP_PASSWORD);
-        $form[self::FORM_FIELD_SMTP_PORT] = $dao->loadConfig(CONFIG_SMTP_PORT);
-        $form[self::FORM_FIELD_SMTP_SSL] = $dao->loadConfig(CONFIG_SMTP_SSL);
-        $form[self::FORM_FIELD_SMTP_USERNAME] = $dao->loadConfig(CONFIG_SMTP_USERNAME);
+        $form[self::FORM_FIELD_EMAIL_ORDER_NOTIFICATION] = $this->getAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION);
+        $form[self::FORM_FIELD_EMAIL_OUTGOING] = $this->getAppConfig(CONFIG_EMAIL_OUTGOING);
+        $form[self::FORM_FIELD_EMAIL_ON_BODY] = $this->getAppConfig(CONFIG_EMAIL_ON_BODY);
+        $form[self::FORM_FIELD_EMAIL_ON_SUBJECT] = $this->getAppConfig(CONFIG_EMAIL_ON_SUBJECT);
+        $form[self::FORM_FIELD_USE_SMTP] = $this->getAppConfig(CONFIG_USE_SMTP);
+        $form[self::FORM_FIELD_SMTP_HOST] = $this->getAppConfig(CONFIG_SMTP_HOST);
+        $form[self::FORM_FIELD_SMTP_PASSWORD] = $this->getAppConfig(CONFIG_SMTP_PASSWORD);
+        $form[self::FORM_FIELD_SMTP_PORT] = $this->getAppConfig(CONFIG_SMTP_PORT);
+        $form[self::FORM_FIELD_SMTP_SSL] = $this->getAppConfig(CONFIG_SMTP_SSL);
+        $form[self::FORM_FIELD_SMTP_USERNAME] = $this->getAppConfig(CONFIG_SMTP_USERNAME);
         if ($this->isPostRequest()) {
             $lang = $this->getLanguage();
             $form[FORM_INFO_MESSAGES] = Array($lang->getMessage('msg.emailSettings.done'));

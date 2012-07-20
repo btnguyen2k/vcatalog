@@ -209,6 +209,17 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
     }
 
     /**
+     * Gets an application configuration setting.
+     *
+     * @param mixed $name
+     */
+    protected function getAppConfig($name) {
+        $configDao = $this->getDao(DAO_CONFIG);
+        $config = $configDao->loadConfig($name);
+        return $config != NULL ? $config->getValue() : NULL;
+    }
+
+    /**
      * Gets the {@link Quack_Bo_Site_ISiteDao} instance.
      *
      * @return Quack_Bo_Site_ISiteDao
@@ -285,30 +296,21 @@ class Vcatalog_Controller_BaseFlowController extends Dzit_Controller_FlowControl
         return isset($_SESSION[SESSION_USER_ID]);
     }
     protected function getPageTitle() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteName = $dao->loadConfig(CONFIG_SITE_NAME);
-        $siteTitle = $dao->loadConfig(CONFIG_SITE_TITLE);
-        return "{$siteName->getValue()} | {$siteTitle->getValue()}";
+        $siteName = $this->getAppConfig(CONFIG_SITE_NAME);
+        $siteTitle = $this->getAppConfig(CONFIG_SITE_TITLE);
+        return "$siteName | $siteTitle";
     }
     protected function getPageKeywords() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteKeywords = $dao->loadConfig(CONFIG_SITE_KEYWORDS);
-        return $siteKeywords->getValue();
+        return $this->getAppConfig(CONFIG_SITE_KEYWORDS);
     }
     protected function getPageDescription() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteDesc = $dao->loadConfig(CONFIG_SITE_DESCRIPTION);
-        return $siteDesc->getValue();
+        return $this->getAppConfig(CONFIG_SITE_DESCRIPTION);
     }
     protected function getPageCopyright() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteCopyright = $dao->loadConfig(CONFIG_SITE_COPYRIGHT);
-        return $siteCopyright->getValue();
+        return $this->getAppConfig(CONFIG_SITE_COPYRIGHT);
     }
     protected function getPageSlogan() {
-        $dao = $this->getDao(DAO_CONFIG);
-        $siteSlogan = $dao->loadConfig(CONFIG_SITE_SLOGAN);
-        return $siteSlogan->getValue();
+        return $this->getAppConfig(CONFIG_SITE_SLOGAN);
     }
 
     /**
