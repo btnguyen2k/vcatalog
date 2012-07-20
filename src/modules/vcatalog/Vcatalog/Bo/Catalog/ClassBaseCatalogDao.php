@@ -427,19 +427,21 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
      */
     public function getItemById($id) {
         $cacheKey = $this->createCacheKeyItem($id);
-        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_ID => $id);
-        $rows = $this->execSelect($sqlStm, $params, $conn->getConn(), $cacheKey);
-        $item = NULL;
-        if ($rows !== NULL && count($rows) > 0) {
-            $item = new Vcatalog_Bo_Catalog_BoItem();
-            $item->populate($rows[0]);
+        $result = $this->getFromCache($cacheKey);
+        if ($result === NULL) {
+            $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+            $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_ID => $id);
+            $rows = $this->execSelect($sqlStm, $params);
+            if ($rows !== NULL && count($rows) > 0) {
+                $result = new Vcatalog_Bo_Catalog_BoItem();
+                $result->populate($rows[0]);
+            }
+            if ($result !== NULL) {
+                $cat = $this->getCategoryById($result->getCategoryId());
+                $result->setCategory($cat);
+            }
         }
-        if ($item !== NULL) {
-            $cat = $this->getCategoryById($item->getCategoryId());
-            $item->setCategory($cat);
-        }
-        return $item;
+        return $this->returnCachedResult($result, $cacheKey);
     }
 
     /**
