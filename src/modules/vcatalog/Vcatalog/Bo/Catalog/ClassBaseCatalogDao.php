@@ -632,7 +632,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
 
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
 
-        $params = Array('itemId' => $item->getId());
+        $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_ID => $item->getId());
         $params['type'] = 0;
         $tokens = preg_split(WORD_SPLIT_PATTERN, strip_tags($item->getTitle()));
         $tags = Array();
@@ -667,7 +667,7 @@ abstract class Vcatalog_Bo_Catalog_BaseCatalogDao extends Quack_Bo_BaseDao imple
             return;
         }
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array('itemId' => $item->getId());
+        $params = Array(Vcatalog_Bo_Catalog_BoItem::COL_ID => $item->getId());
         $result = $this->execNonSelect($sqlStm, $params);
         return $result;
     }
