@@ -1,18 +1,18 @@
 <?php
-abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
+abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements 
         Vcatalog_Bo_User_IUserDao {
-
+    
     /**
      *
      * @var Ddth_Commons_Logging_ILog
      */
     private $LOGGER;
-
+    
     public function __construct() {
         $this->LOGGER = Ddth_Commons_Logging_LogFactory::getLog(__CLASS__);
         parent::__construct();
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -21,19 +21,19 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
     public function getCacheName() {
         return 'IUserDao';
     }
-
+    
     protected function createCacheKeyUserId($userId) {
         return $userId;
     }
-
+    
     protected function createCacheKeyUserUsername($username) {
         return "USERNAME_$username";
     }
-
+    
     protected function createCacheKeyUserEmail($email) {
         return "EMAIL_$email";
     }
-
+    
     /**
      * Invalidates the user cache due to change.
      *
@@ -43,13 +43,32 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         if ($user !== NULL) {
             $id = $user->getId();
             $email = $user->getEmail();
-            $loginname = $user->getLoginname();
+            $username = $user->getUsername();
             $this->deleteFromCache($this->createCacheKeyUserId($id));
             $this->deleteFromCache($this->createCacheKeyUserEmail($email));
-            $this->deleteFromCache($this->createCacheKeyUserLoginname($loginname));
+            $this->deleteFromCache($this->createCacheKeyUserUsername($username));
         }
     }
-
+    
+    /**
+     *
+     * @see Vcatalog_Bo_User_IUserDao::getUsers();
+     */
+    public function getUsers() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array();
+        $result = Array();
+        $rows = $this->execSelect($sqlStm, $params);
+        if ($rows !== NULL && count($rows) > 0) {
+            foreach ($rows as $row) {
+                $userId = $row[Vcatalog_Bo_User_BoUser::COL_ID];
+                $user = $this->getUserById($userId);
+                $result[] = $user;
+            }
+        }
+        return $result;
+    }
+    
     /**
      *
      * @see Vcatalog_Bo_User_IUserDao::getUserById()
@@ -69,7 +88,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -93,7 +112,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -117,7 +136,7 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
         }
         return $this->returnCachedResult($result, $cacheKey);
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -125,17 +144,17 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      */
     public function createUser($user) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vcatalog_Bo_User_BoUser::COL_USERNAME => $user->getUsername(),
-                Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(),
-                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(),
-                Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId(),
-                Vcatalog_Bo_User_BoUser::COL_TITLE => $user->getTitle(),
-                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(),
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_USERNAME => $user->getUsername(), 
+                Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(), 
+                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(), 
+                Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId(), 
+                Vcatalog_Bo_User_BoUser::COL_TITLE => $user->getTitle(), 
+                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(), 
                 Vcatalog_Bo_User_BoUser::COL_LOCATION => $user->getLocation());
         $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($user);
     }
-
+    
     /**
      * (non-PHPdoc)
      *
@@ -143,16 +162,30 @@ abstract class Vcatalog_Bo_User_BaseUserDao extends Quack_Bo_BaseDao implements
      */
     public function updateUser($user) {
         $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
-        $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => (int)$user->getId(),
-                Vcatalog_Bo_User_BoUser::COL_USERNAME => $user->getUsername(),
-                Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(),
-                Vcatalog_Bo_User_BoUser::COL_TITLE => $user->getTitle(),
-                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(),
-                Vcatalog_Bo_User_BoUser::COL_LOCATION => $user->getLocation(),
-                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(),
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => (int)$user->getId(), 
+                Vcatalog_Bo_User_BoUser::COL_USERNAME => $user->getUsername(), 
+                Vcatalog_Bo_User_BoUser::COL_EMAIL => $user->getEmail(), 
+                Vcatalog_Bo_User_BoUser::COL_TITLE => $user->getTitle(), 
+                Vcatalog_Bo_User_BoUser::COL_FULLNAME => $user->getFullname(), 
+                Vcatalog_Bo_User_BoUser::COL_LOCATION => $user->getLocation(), 
+                Vcatalog_Bo_User_BoUser::COL_PASSWORD => $user->getPassword(), 
                 Vcatalog_Bo_User_BoUser::COL_GROUP_ID => (int)$user->getGroupId());
         $result = $this->execNonSelect($sqlStm, $params);
         $this->invalidateCache($user);
+        return $result;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     *
+     * @see Vcatalog_Bo_User_IUserDao::deleteUser()
+     */
+    public function deleteUser($user) {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $params = Array(Vcatalog_Bo_User_BoUser::COL_ID => $user->getId());
+        $result = $this->execNonSelect($sqlStm, $params);
+        $this->invalidateCache($user);
+        
         return $result;
     }
 }
