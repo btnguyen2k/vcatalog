@@ -105,11 +105,13 @@
                         <td style="text-align: center;" width="36px">
                             <a href="[:$page->urlEdit:]"><img border="0" alt="" src="img/edit.png" /></a>
                             <a href="[:$page->urlDelete:]"><img border="0" alt="" src="img/delete.png" /></a>
+                            <!--
                             [:if $page->onMenu:]
                                 <img border="0" alt="" src="img/arrow_down.png" />
                             [:else:]
                                 <img border="0" alt="" src="img/arrow_up.png" />
                             [:/if:]
+                            -->
                         </td>
                     </tr>
                 [:foreachelse:]
