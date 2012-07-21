@@ -6,6 +6,7 @@
     
     [:assign var="_debugHtml" value="":]
     [:assign var="_debugHtml" value="`$_debugHtml`<div id='debug'>":]
+    [:assign var="_debugHtml" value="`$_debugHtml`<div>`$smarty.server.REQUEST_URI`</div>":]
     
     [:assign var="_debugHtml" value="`$_debugHtml`<table>":]
     [:assign var="_debugHtml" value="`$_debugHtml`<thead><tr><th colspan='3'>Memory Info</th></tr><tr><th>Usage</th><th>Peak</th><th>Limit</th></tr></thead>":]
