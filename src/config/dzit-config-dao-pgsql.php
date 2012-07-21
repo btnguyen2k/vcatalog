@@ -35,7 +35,7 @@ $DPHP_DAO_CONFIG_PGSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Pgsql_BasePg
         DAO_CATALOG => Array('class' => 'Vcatalog_Bo_Catalog_PgsqlCatalogDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_catalog.base.properties'),
         DAO_CART => Array('class' => 'Vcatalog_Bo_Cart_PgsqlCartDao',
-                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'Pgsql/sql_cart.pgsql.properties',
+                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'PgSql/sql_cart.pgsql.properties',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_cart.base.properties'),
         DAO_PAGE => Array('class' => 'Quack_Bo_Page_PgsqlPageDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_page.base.properties'),
