@@ -127,7 +127,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         $orderItems = '<table border="1"><thread><tr><th style="text-align: center;">';
         $orderItems .= $lang->getMessage('msg.item') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
-        $orderItems .= $lang->getMessage('msg.item.vendor') . '</th>';
+        $orderItems .= $lang->getMessage('msg.item.code') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
         $orderItems .= $lang->getMessage('msg.price') . '</th>';
         $orderItems .= '<th style="text-align: center;" width="64px">';
@@ -139,7 +139,7 @@ class Vcatalog_Controller_CheckoutController extends Vcatalog_Controller_BaseFlo
         foreach ($cart->getItems() as $item) {
             $orderItems .= '<tr>';
             $orderItems .= '<td>' . htmlspecialchars($item->getTitle()) . '</td>';
-            $orderItems .= '<td>' . htmlspecialchars($item->getVendor()) . '</td>';
+            $orderItems .= '<td>' . htmlspecialchars($item->getCode()) . '</td>';
             $orderItems .= '<td align="right">' . $item->getPriceForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getQuantityForDisplay() . '</td>';
             $orderItems .= '<td align="right">' . $item->getTotalForDisplay() . '</td>';
