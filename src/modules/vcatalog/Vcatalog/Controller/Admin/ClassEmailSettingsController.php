@@ -72,16 +72,16 @@ class Vcatalog_Controller_Admin_EmailSettingsController extends Vcatalog_Control
         $smtpSsl = isset($_POST[self::FORM_FIELD_SMTP_SSL]) ? (int)$_POST[self::FORM_FIELD_SMTP_SSL] : 0;
         $smtpUsername = isset($_POST[self::FORM_FIELD_SMTP_USERNAME]) ? $_POST[self::FORM_FIELD_SMTP_USERNAME] : '';
 
-        $dao->saveConfig(CONFIG_EMAIL_ORDER_NOTIFICATION, $emailOrderNotification);
-        $dao->saveConfig(CONFIG_EMAIL_OUTGOING, $emailOutgoing);
-        $dao->saveConfig(CONFIG_EMAIL_ON_BODY, $emailOnBody);
-        $dao->saveConfig(CONFIG_EMAIL_ON_SUBJECT, $emailOnSubject);
-        $dao->saveConfig(CONFIG_USE_SMTP, $useSmtp);
-        $dao->saveConfig(CONFIG_SMTP_HOST, $smtpHost);
-        $dao->saveConfig(CONFIG_SMTP_PASSWORD, $smtpPassword);
-        $dao->saveConfig(CONFIG_SMTP_PORT, $smtpPort);
-        $dao->saveConfig(CONFIG_SMTP_SSL, $smtpSsl);
-        $dao->saveConfig(CONFIG_SMTP_USERNAME, $smtpUsername);
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_EMAIL_ORDER_NOTIFICATION, $emailOrderNotification));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_EMAIL_OUTGOING, $emailOutgoing));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_EMAIL_ON_BODY, $emailOnBody));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_EMAIL_ON_SUBJECT, $emailOnSubject));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_USE_SMTP, $useSmtp));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SMTP_HOST, $smtpHost));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SMTP_PASSWORD, $smtpPassword));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SMTP_PORT, $smtpPort));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SMTP_SSL, $smtpSsl));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SMTP_USERNAME, $smtpUsername));
 
         return FALSE;
     }
