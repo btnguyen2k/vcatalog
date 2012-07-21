@@ -31,9 +31,11 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
      *
      * @param string $sessionId
      */
-    protected function invalidateCache($sessionId) {
-        $cacheKey = $this->createCacheKeyCart($sessionId);
-        $this->deleteFromCache($cacheKey);
+    protected function invalidateCache($sessionId = NULL) {
+        if ($sessionId !== NULL) {
+            $cacheKey = $this->createCacheKeyCart($sessionId);
+            $this->deleteFromCache($cacheKey);
+        }
     }
 
     /**
@@ -48,6 +50,18 @@ abstract class Vcatalog_Bo_Cart_BaseCartDao extends Quack_Bo_BaseDao implements
         $cacheKey = $this->createCacheKeyCart($sessionId);
         $this->invalidateCache($sessionId);
         $result = $this->getCart($sessionId);
+        return $result;
+    }
+
+    /**
+     * (non-PHPdoc)
+     *
+     * @see Vcatalog_Bo_Cart_ICartDao::cleanup()
+     */
+    public function cleanup() {
+        $sqlStm = $this->getStatement('sql.' . __FUNCTION__);
+        $result = $this->execNonSelect($sqlStm);
+        $this->invalidateCache();
         return $result;
     }
 
