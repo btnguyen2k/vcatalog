@@ -1,6 +1,11 @@
 <?php
 /* vCatalog's global boostrap file */
 
+// disable cache
+//global $DPHP_CACHE_CONFIG;
+//global $DPHP_CACHE_CONFIG_MEMORY;
+//$DPHP_CACHE_CONFIG = &$DPHP_CACHE_CONFIG_MEMORY;
+
 function bootstrap_getSiteInfo() {
     global $DPHP_DAO_CONFIG_SITE;
     $siteDao = Ddth_Dao_BaseDaoFactory::getInstance($DPHP_DAO_CONFIG_SITE)->getDao(DAO_SITE);
@@ -124,9 +129,17 @@ function bootstrap_configSkin() {
     }
 }
 
+function bootstrap_cleanupCart() {
+    if (rand(0, 10) < 2) {
+        $cartDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_CART);
+        $cartDao->cleanup();
+    }
+}
+
 bootstrap_configureSiteLogging();
 bootstrap_configureDAOs();
 bootstrap_configSkin();
+bootstrap_cleanupCart();
 
 /*
  * Use Quack's session handler. Comment the next line if you want to use PHP's
