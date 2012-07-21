@@ -1,7 +1,12 @@
 <?php
-$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.7.0.$Revision$');
+$vCatalogVersion = preg_replace('/\\$Revision:.*?(\\d+).*?$/', '$1', 'v0.7.1.$Revision$');
 define('VCATALOG_VERSION', $vCatalogVersion);
 /*
+ *  * 2012-07-21: v0.7.1
+ *   - Use InnoDB for MySQL
+ *   - Use MySQL as default database
+ *   - Bugs fixed
+ *
  * * 2012-07-14: v0.7.0
  *   - Support PgSQL
  *   - Cache & DB connection improvement
