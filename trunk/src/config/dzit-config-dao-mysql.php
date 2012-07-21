@@ -31,7 +31,7 @@ $DPHP_DAO_CONFIG_MYSQL = Array('dphp-dao.factoryClass' => 'Ddth_Dao_Mysql_BaseMy
         DAO_CATALOG => Array('class' => 'Vcatalog_Bo_Catalog_MysqlCatalogDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_catalog.base.properties'),
         DAO_CART => Array('class' => 'Vcatalog_Bo_Cart_MysqlCartDao',
-                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'Mysql/sql_cart.mysql.properties',
+                Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_STM_FILE => 'MySql/sql_cart.mysql.properties',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_cart.base.properties'),
         DAO_PAGE => Array('class' => 'Quack_Bo_Page_MysqlPageDao',
                 Ddth_Dao_AbstractSqlStatementDao::CONF_SQL_BASE_STM_FILE => 'Base/sql_page.base.properties'),
