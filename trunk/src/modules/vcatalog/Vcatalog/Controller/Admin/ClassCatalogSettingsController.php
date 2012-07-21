@@ -84,11 +84,11 @@ class Vcatalog_Controller_Admin_CatalogSettingsController extends Vcatalog_Contr
             $thousandsSeparator = $thousandsSeparator[0];
         }
 
-        $dao->saveConfig(CONFIG_CURRENCY, $currency);
-        $dao->saveConfig(CONFIG_PRICE_DECIMAL_PLACES, $priceDecimalPlaces);
-        $dao->saveConfig(CONFIG_QUANTITY_DECIMAL_PLACES, $quantityDecimalPlaces);
-        $dao->saveConfig(CONFIG_DECIMAL_SEPARATOR, $decimalSeparator);
-        $dao->saveConfig(CONFIG_THOUSANDS_SEPARATOR, $thousandsSeparator);
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_CURRENCY, $currency));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_PRICE_DECIMAL_PLACES, $priceDecimalPlaces));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_QUANTITY_DECIMAL_PLACES, $quantityDecimalPlaces));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_DECIMAL_SEPARATOR, $decimalSeparator));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_THOUSANDS_SEPARATOR, $thousandsSeparator));
 
         return FALSE;
     }

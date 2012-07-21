@@ -99,12 +99,12 @@ class Vcatalog_Controller_Admin_SiteSettingsController extends Vcatalog_Controll
         $siteCopyright = isset($_POST[self::FORM_FIELD_SITE_COPYRIGHT]) ? $_POST[self::FORM_FIELD_SITE_COPYRIGHT] : '';
         $siteSkin = isset($_POST[self::FORM_FIELD_SITE_SKIN]) ? $_POST[self::FORM_FIELD_SITE_SKIN] : '';
 
-        $dao->saveConfig(CONFIG_SITE_NAME, $siteName);
-        $dao->saveConfig(CONFIG_SITE_TITLE, $siteTitle);
-        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteKeywords);
-        $dao->saveConfig(CONFIG_SITE_KEYWORDS, $siteDescription);
-        $dao->saveConfig(CONFIG_SITE_COPYRIGHT, $siteCopyright);
-        $dao->saveConfig(CONFIG_SITE_SKIN, $siteSkin);
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_NAME, $siteName));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_TITLE, $siteTitle));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_KEYWORDS, $siteKeywords));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_KEYWORDS, $siteDescription));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_COPYRIGHT, $siteCopyright));
+        $dao->saveConfig(new Quack_Bo_AppConfig_BoAppConfig(CONFIG_SITE_SKIN, $siteSkin));
         return FALSE;
     }
 }
