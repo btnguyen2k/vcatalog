@@ -92,6 +92,10 @@ INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('decimal_separator', ',');
 INSERT INTO vcatalog_app_config (conf_key, conf_value)
 VALUES('thousands_separator', '.');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('thumbnail_width', '260');
+INSERT INTO vcatalog_app_config (conf_key, conf_value)
+VALUES('thumbnail_heidth', '180');
 
 CREATE TABLE app_log(
     logid               INT                 NOT NULL AUTO_INCREMENT,

@@ -68,6 +68,14 @@
     [:/if:]
 [:/function:]
 
+[:function name=groupName groupId=0:]
+    [:if isset($groupId) && $groupId eq 1:]
+        [:$MODEL.language->getMessage('msg.adminCp'):]
+    [:else:]
+    	[:$MODEL.language->getMessage('msg.member'):]
+    [:/if:]   
+[:/function:]
+
 [:function renderMenuItemAction menuItem=NULL:]
     [:if isset($menuItem.URL):]
         onclick="window.location.href='[:$menuItem.URL:]';"

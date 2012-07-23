@@ -29,7 +29,7 @@
             		<td>[:$item@index+1:]</td>
             		<td>[:$item->getTitle()|escape:'html':]</td>
             		<td>
-            			<div class="span6" >  
+            			<div class="span7" >  
                     		<img src="[:$_urlThumbnail:]" alt="">
                     	</div>
     				</td>
