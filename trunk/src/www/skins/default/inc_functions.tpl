@@ -7,7 +7,8 @@
 [:/if:]
 
 [:function name="displayCategoryList" categotyList=NULL:]
-    <ul class="thumbnails" style="padding-left: 15px">
+
+    <ul class="thumbnails" >
         [:foreach $categoryList as $_cat:]
             [:if $_cat->getUrlThumbnail()=='':]
                 [:assign var="_urlThumbnail" value="img/img_general.jpg":]
@@ -32,6 +33,7 @@
         [:foreachelse:]
             <li class="span12">[:$MODEL.language->getMessage('msg.nodata'):]</li>
         [:/foreach:]
+        [:call name=popover elName='categories' placement='top':]
     </ul>
 [:/function:]
 
@@ -51,7 +53,30 @@
     [:else:]
         [:assign var="_urlThumbnail" value=$item->getUrlThumbnail():]
     [:/if:]
-    <li class="span3">
+    <li class="span3  grid-image" style="position: relative;">    
+      	<a href="javascript:void(0)" class="thumbnail" onclick="redirect('[:$item->getUrlView():]')">
+      		<div class="caption category-header" >[:$item->getTitle()|escape:'html':]<img src="img/new.gif"> </div>
+      		<div class="label label-info" style="position: absolute; top: 40px;right: 5px;">[:if $item->getCode()!='':][:$item->getCode()|escape:'html':][:/if:]</div>
+       		<img src="[:$_urlThumbnail:]" alt="">           
+     	</a>     
+     	<div style="padding-top: 10px;"> 
+     		 <form method="post" action="[:$smarty.server.SCRIPT_NAME:]/addToCart">    
+     		 	<input type="hidden" name="item" value="[:$item->getId():]" />
+                <input type="hidden" name="quantity" value="1" />       
+         		<div class="btn-group" style="float: left;">
+                  	<button class="btn btn-warning" type="button" onclick="redirect('[:$item->getUrlView():]')">[:$LANGUAGE->getMessage('msg.view'):]</button>
+                  	<button class="btn btn-warning" type="button" onclick="this.form.submit(); return 0;"><img alt="" src="img/cart_add.png"></button>
+                </div> 
+                <span class="label label-important" style="font-size: 17px;float: right;height: 17px;margin-left: 5px;margin-top: 5px">[:$item->getPriceForDisplay():]</span>
+             </form>    	   		
+        </div> 
+        <br/>
+        <div>  
+         	[:if $cart->existInCart($item):] [:$LANGUAGE->getMessage('msg.inCart'):]: <strong>[:$cart->getItem($item)->getQuantity():]</strong>[:/if:]
+        </div> 
+    </li>
+     
+   <!-- <li class="span3">
         <div class="thumbnail">
             <img src="[:$_urlThumbnail:]" alt="[:$item->getTitle()|escape:'html':]" width="100px" height="100px" />  
             <div class="caption">
@@ -68,13 +93,13 @@
                 </p>
             </div>
         </div>
-    </li>
+    </li> -->
 [:/function:]
 
 [:function name=printFormHeader form=NULL:]
     [:if isset($form.errorMessages) && count($form.errorMessages) gt 0:]
         [:foreach $form.errorMessages as $msg:]
-            <div class="errorMsg">[:$msg:]</div>
+           <div class="errorMsg">[:$msg:]</div>
         [:/foreach:]
         <br />
     [:/if:]
@@ -109,4 +134,47 @@
         });
     </script>
     <!-- /TinyMCE -->
+[:/function:]
+
+[:function name=scroller elId='':]
+    <!-- Scroller -->
+   <script src="js/jquery.simplyscroll.js" type="text/javascript"></script>    
+   <script type="text/javascript">       
+        (function($) {
+        	$(function() { //on DOM ready
+        		$("#[:$elId:]").simplyScroll({
+        			customClass: 'vert',
+        			orientation: 'vertical',
+                    auto: true,
+                    manualMode: 'loop',
+        			frameRate: 24,			
+        			speed: 1
+        		});
+        	});
+        })(jQuery);      
+    </script>
+    <!-- /Scroller -->
+[:/function:]
+
+
+[:function name=carousel:]
+    <!-- Carousel -->
+   <script src="bootstrap/js/bootstrap-carousel.js" type="text/javascript"></script>  
+   <script type="text/javascript">
+   		$(function() {
+			$('.carousel').carousel();
+		});
+    </script>
+    <!-- /Carousel -->
+[:/function:]
+
+[:function name=popover elName='' placement='':]
+    <!-- Popover -->
+  <script src="bootstrap/js/bootstrap-popover.js" type="text/javascript"></script> 
+   <script type="text/javascript">
+   		$(function ()  
+			{ $("[name='[:$elName:]']").popover({placement:'[:$placement:]'});  
+		}); 
+    </script>
+    <!-- /Popover -->
 [:/function:]

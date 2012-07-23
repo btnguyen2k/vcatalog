@@ -13,11 +13,15 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.simplyscroll.css" />
     
-    <script src="js/script.js"></script> 
-	<script src="js/jquery.min.js"></script>  
-	<script src="bootstrap/js/bootstrap-tooltip.js"></script>  
-	<script src="bootstrap/js/bootstrap-popover.js"></script>  
+	<script src="js/jquery.js" type="text/javascript"></script>  
+	<script src="js/jquery.min.js" type="text/javascript"></script>  
+	<script src="js/jquery.tools.min.js" type="text/javascript"></script>  
+	<script src="bootstrap/js/bootstrap-tooltip.js" type="text/javascript"></script>	  
+	<script src="bootstrap/js/bootstrap-tab.js" type="text/javascript"></script>  
+	<script src="js/script.js" type="text/javascript"></script> 
+	
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>

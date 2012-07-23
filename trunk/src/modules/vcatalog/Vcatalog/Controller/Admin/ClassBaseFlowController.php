@@ -41,6 +41,11 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
         // $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] .
         // '/admin/createAds';
         $model['urlCreateAds'] = $_SERVER['SCRIPT_NAME'] . '/createAds';
+        
+         // '/admin/userList';
+        $model['urlUserManagement'] = $this->getUrlUserManagement();
+         // '/admin/createUser';
+        $model['urlCreateUser'] = $_SERVER['SCRIPT_NAME'] . '/createUser';
 
         return $model;
     }
@@ -63,5 +68,10 @@ class Vcatalog_Controller_Admin_BaseFlowController extends Vcatalog_Controller_B
     protected function getUrlAdsManagement() {
         // return $_SERVER['SCRIPT_NAME'] . '/admin/ads';
         return $_SERVER['SCRIPT_NAME'] . '/ads';
+    }
+    
+protected function getUrlUserManagement() {
+        // return $_SERVER['SCRIPT_NAME'] . '/admin/users';
+        return $_SERVER['SCRIPT_NAME'] . '/users';
     }
 }

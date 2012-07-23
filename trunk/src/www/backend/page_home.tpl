@@ -34,6 +34,12 @@
     .vcatalogIconAdsAdd {
         background-image: url('icon/iconAdsAdd.png'); width: 16px; height: 16px;
     }
+	.vcatalogIconUserAdd {
+        background-image: url('icon/iconUserAdd.png'); width: 16px; height: 16px;
+    }
+	.vcatalogIconUserList {
+        background-image: url('icon/iconUserList.png'); width: 16px; height: 16px;
+    }
     </style>
     <script type="text/javascript">
     function loadUrl(url) {
@@ -63,6 +69,14 @@
                 <strong>[:$MODEL.APP_NAME:]</strong>
             </div>
             |
+             <!-- MENU: Site Management -->
+            <div dojoType="dijit.PopupMenuBarItem">
+                <span>[:$MODEL.language->getMessage('msg.userManagement'):]</span>
+                <div dojoType="dijit.Menu">
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconUserList' onclick="loadUrl('[:$MODEL.urlUserManagement:]');">[:$MODEL.language->getMessage('msg.userList'):]</div>
+                    <div dojoType="dijit.MenuItem" iconClass='vcatalogIconUserAdd' onclick="loadUrl('[:$MODEL.urlCreateUser:]');">[:$MODEL.language->getMessage('msg.createUser'):]</div>
+                </div>
+            </div>
             <!-- MENU: Site Management -->
             <div dojoType="dijit.PopupMenuBarItem">
                 <span>[:$MODEL.language->getMessage('msg.settings'):]</span>
