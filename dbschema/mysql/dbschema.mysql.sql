@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS vcatalog_tag;
 DROP TABLE IF EXISTS vcatalog_group;
 DROP TABLE IF EXISTS vcatalog_user;
 DROP TABLE IF EXISTS vcatalog_paperclip;
-DROP TABLE IF EXISTS vcatalog_order_history;
 DROP TABLE IF EXISTS vcatalog_cart_item;
 DROP TABLE IF EXISTS vcatalog_cart;
 DROP TABLE IF EXISTS vcatalog_item;
