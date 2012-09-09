@@ -59,7 +59,7 @@
                         [:if $item->isNewItem():]
                             <span class="new">[:$MODEL.language->getMessage('msg.new'):]</span>
                         [:/if:]
-                        <big><a href="javascript:;" onclick="openUrl('[:$item->getUrlEdit():]')">[:$item->getTitle()|escape:'html':]</a></big>
+                        <big><a href="javascript:;" onclick="openUrl('[:$item->getUrlEdit():]')">[:$item->getCode()|escape:'html':] - [:$item->getTitle()|escape:'html':]</a></big>
                         <br />
                         <small>
                             [:$MODEL.language->getMessage('msg.item.vendor'):]: <strong>[:$item->getVendor()|escape:'html':]</strong>
