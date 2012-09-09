@@ -57,8 +57,21 @@ class Vcatalog_ProfiledDispatcher extends Dzit_DefaultDispatcher {
         if (defined('PROFILING')) {
             Quack_Util_ProfileUtils::pop();
             try {
-                $profileDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_PROFILE);
-                $profileDao->writeProfilingData();
+                $writeProfiling = TRUE;
+                if (PROFILING_THRESHOLD > 0.0) {
+                    $entryList = Quack_Util_ProfileUtils::get();
+                    $duration = 0.0;
+                    foreach ($entryList as $entry) {
+                        $duration += $entry[Quack_Util_ProfileUtils::KEY_DURATION];
+                    }
+                    if ($duration < PROFILING_THRESHOLD) {
+                        $writeProfiling = FALSE;
+                    }
+                }
+                if ($writeProfiling) {
+                    $profileDao = Ddth_Dao_BaseDaoFactory::getInstance()->getDao(DAO_PROFILE);
+                    $profileDao->writeProfilingData();
+                }
             } catch (Exception $e) {
                 $this->LOGGER->error($e->getMessage(), $e);
             }
